@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Work CV</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" th:href="@{/assets/css/open-iconic-bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.theme.default.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.theme.default.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/ionicons.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/bootstrap-datepicker.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/jquery.timepicker.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/css/bootstrap-reboot.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/css/mixins/_text-hide.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/flaticon.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/icomoon.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/bootstrap/bootstrap-grid.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/bootstrap/bootstrap-reboot.css}">
+
+  <!-- JS -->
+  <script th:src="@{/assets/js/jquery.min.js}"></script>
+  <script th:src="@{/assets/js/jquery-migrate-3.0.1.min.js}"></script>
+  <script th:src="@{/assets/js/popper.min.js}"></script>
+  <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+  <script th:src="@{/assets/js/jquery.easing.1.3.js}"></script>
+  <script th:src="@{/assets/js/jquery.waypoints.min.js}"></script>
+  <script th:src="@{/assets/js/jquery.stellar.min.js}"></script>
+  <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+  <script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+  <script th:src="@{/assets/js/aos.js}"></script>
+  <script th:src="@{/assets/js/jquery.animateNumber.min.js}"></script>
+  <script th:src="@{/assets/js/scrollax.min.js}"></script>
+  <script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false}"></script>
+  <script th:src="@{/assets/js/google-map.js}"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
+  <script th:src="@{https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js}"></script>
+  <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
+</head>
+<body>
+<nav class="header_menu navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container-fluid px-md-4	">
+        <a class="navbar-brand" th:href="@{/home}">Work CV</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a th:href="@{/home}" class="nav-link">Trang chủ</a></li>
+                <li class="nav-item">
+                    <a th:href="@{/list-recruitment}" class="nav-link">Công việc</a>
+                </li>
+                <li th:if="${userlogin != 'null'}" class="nav-item">
+                    <a th:if="${userlogin.isAdmin}"
+                       th:href="@{/list-user}" class="nav-link">Ứng cử viên</a>
+                </li>
+
+                <li class="nav-item cta mr-md-1 px-1 ">
+                    <a th:href="@{/register}"
+                       th:if="${userlogin == 'null'}" class="nav-link">Đăng ký</a>
+                </li>
+
+                <li class="nav-item cta mr-md-1 px-1  ">
+                    <a th:href="@{/login}"
+                       th:if="${userlogin == 'null'}" class="nav-link">Đăng nhập</a>
+                </li>
+
+
+                <!--  Nếu là Manager thì hiện thị chức năng của Manager       -->
+                <li class="nav-item" th:if="${userlogin != 'null'}">
+                    <p class="nav-link text-center" th:text="${userlogin.fullname}">
+                    <ul  th:if="${userlogin.isAdmin}" class="dropdown">
+                        <li><a th:href="@{/profile}">Hồ Sơ</a></li>
+                        <li><a th:href="@{/user/post-list}" >Danh sách bài đăng</a></li>
+                        <li><a th:href="@{/logout}" >Đăng xuất</a></li>
+                    </ul>
+
+                    <ul  th:unless="${userlogin.isAdmin}" class="dropdown">
+                        <li><a th:href="@{/profile}">Hồ Sơ</a></li>
+                        <li><a th:href="@{/list-save-job}">Công việc đã lưu</a></li>
+                        <li><a th:href="@{/list-follow-company}">Công ty đã lưu</a></li>
+                        <li><a th:href="@{logout}" >Đăng xuất</a></li>
+                    </ul>
+                    </p>
+                </li>
+
+                <li th:if="${userlogin != 'null'}" class="nav-item cta mr-md-1 px-1" >
+                    <a th:if="${userlogin.isAdmin}"
+                       th:href="@{/user/post-job}"
+                       class="nav-link">Đăng tuyển</a>
+                </li>
+            </ul>
+        </div>
+      </div>
+</nav>
+
+<div class="hero-wrap hero-wrap-2" style="background-image: url(/assets/images/bg_1.jpg);" data-stellar-background-ratio="0.5" >
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a th:href="@{/home}">Trang chủ ▷</a></span>Danh sách <span></span></p>
+                <h1 class="mb-3 bread">Danh sách bài đăng</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${success}" class="toast" data-delay="2500" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+    <script>
+        swal({
+            title: 'Thành công!',
+            /* text: 'Redirecting...', */
+            icon: 'success',
+            timer: 3000,
+            buttons: true,
+            type: 'success'
+        })
+    </script>
+</div>
+<div th:if="${error}" class="toast" data-delay="2500" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+    <script>
+        swal({
+            title: 'Bài đăng đang có người ứng tuyển!',
+            /* text: 'Redirecting...', */
+            icon: 'error',
+            timer: 3000,
+            buttons: true,
+            type: 'error'
+        })
+    </script>
+</div>
+<section class="ftco-section bg-light" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 pr-lg-4">
+                <div class="row">
+                    <th:block th:if="${recruitments.content.size() == 0}">
+                        <div class="row form-group" >
+                            <label for="company-website-tw d-block">Danh sách bài tuyển dụng </label> <br>
+                            <div class="col-md-12">
+                                <a href="/recruitment/post" class="btn px-4 btn-primary text-white">Đăng tuyển</a>
+                            </div>
+                        </div>
+                    </th:block>
+
+
+                    <th:block th:if="${ recruitments.content.size() > 0}"
+                              th:each="recruitment : ${recruitments.content}">
+                        <div class="col-md-12 ">
+                            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                <div class="one-third mb-4 mb-md-0">
+                                    <div class="job-post-item-header align-items-center">
+                                        <span class="subadge" th:text="${recruitment.type}"></span>
+                                        <h2 class="mr-3 text-black" ><a th:text="${recruitment.title}" th:href="@{/detail-post(id=${recruitment.id})}"></a></h2>
+                                    </div>
+                                    <div class="job-post-item-body d-block d-md-flex">
+                                        <div class="mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layers-fill" viewBox="0 0 16 16">
+                                                <path d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4z"/>
+                                                <path d="m2.125 8.567-1.86.992a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882l-1.86-.992-5.17 2.756a1.5 1.5 0 0 1-1.41 0l-5.17-2.756z"/>
+                                            </svg>
+                                            <a th:href="@{/user/detail-company(id=${recruitment.company.id})}" th:text="${recruitment.Company.nameCompany}" ></a></div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                            </svg>
+                                            <span th:text="${recruitment.address}"></span></div>
+                                    </div>
+                                </div>
+
+                                <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0" style="width: 330px !important;">
+
+                                    <a th:href="@{/detail-post(id=${recruitment.id})}"  class="btn btn-primary py-2 ml-2">Xem chi tiết</a>
+                                    <a href="" class="btn btn-warning py-2 ml-2" data-toggle="modal" th:data-target="${'#exampleModal1'} + ${recruitment.id}" >Cập nhật</a>
+                                    <a class="btn btn-danger py-2 ml-2" href="#" data-toggle="modal" th:data-target="'#deleteModal-' + ${recruitment.id}">Xóa</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Update-->
+
+                        <div class="modal fade" tabindex="-1" th:id="'exampleModal1'+${recruitment.id}"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg ">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabell">Cập nhật tuyển dụng</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="recruitment" enctype="aplication/form-data" th:object="${recruitment}"
+                                              th:action="@{/updateRecruitment}" method="post">
+                                            <input type="hidden" name="id" th:value="${recruitment.id}">
+
+                                            <div class="row mb-5">
+                                                <div class="col-lg-12">
+                                                    <div class="p-4 p-md-5 border rounded" method="post">
+
+
+                                                        <div class="form-group">
+                                                            <label for="email">Tiêu đề</label>
+                                                            <input type="text" class="form-control" id="email" name="title"  required th:value="${recruitment.title}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="job-description">Mô tả công việc</label>
+                                                            <textarea  name="description"  class="form-control" id="job-description" th:text="${recruitment.description}"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="job-experience">Kinh nghiệm</label>
+                                                            <input type="text" class="form-control" id="job-experience" name="experience" th:value="${recruitment.experience}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="job-quantity">Số người cần tuyển</label>
+                                                            <input type="number" class="form-control" id="job-quantity" name="quantity" th:value="${recruitment.quantity}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="job-address">Địa chỉ</label>
+                                                            <input type="text" class="form-control" id="job-address"  name="address" th:value="${recruitment.address}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="job-deadline">Hạn ứng tuyển</label>
+                                                            <input type="date" class="form-control" id="job-deadline"  name="deadline" th:value="${recruitment.deadline}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="job-salary">Lương</label>
+                                                            <input type="text" class="form-control" id="job-salary"  name="salary" th:value="${recruitment.salary}">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="job-region">Loại công việc</label>
+                                                            <select class="form-control"  name="type" aria-label="Default select example" required>
+                                                                <option th:value="${recruitment.type}" selected th:text="${recruitment.type}"></option>
+                                                                <option value="Part time">Part time</option>
+                                                                <option value="Full time">Full time</option>
+                                                                <option value="Freelancer">Freelancer</option>
+                                                            </select>
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="job-region">Danh mục công việc</label>
+                                                            <select class="form-control" id="job-region" name="category_id" aria-label="Default select example"
+                                                                    required th:value="${recruitment.category.id}">
+                                                                <th:block th:each="category : ${categories}">
+
+                                                                    <option th:value="${category.id}"
+                                                                            th:selected="${recruitment.category.id == recruitment.id}">
+                                                                        <span th:text="${category.nameCategory}"></span>
+                                                                    </option>
+                                                                </th:block>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row align-items-center mb-5">
+
+                                                <div class="col-lg-4 ml-auto">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="#" class="btn btn-block btn-light btn-md"></a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button type="submit" class="btn btn-block btn-primary btn-md">Cập nhật</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Modal Update-->
+
+
+                        <!--Delete Recruitment-->
+                        <div class="modal fade" th:id="'deleteModal-' + ${recruitment.id}" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xóa ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bài đăng : <span th:text="${recruitment.title}"></span>
+                                        <form th:action="@{/deleteRecruitment(id=${recruitment.id})}" method="post">
+                                            <div class="modal-footer mt-1">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <button type="submit" class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                    </th:block>
+                </div>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${pageNumber == 0 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/user/post-list(page=${recruitments.number-1})}">Previous</a>
+                    </li>
+                    <div th:each="i : ${#numbers.sequence(0, recruitments.totalPages - 1)}">
+                        <li class="page-item" th:classappend="${i==recruitments.number} ? 'active': ''">
+                            <a class="page-link" th:ac th:href="@{/user/post-list(page=${i})}"
+                               th:text="${i + 1}">
+                            </a>
+                        </li>
+                    </div>
+                    <li class="page-item"
+                        th:classappend="${pageNumber == recruitments.totalPages-1 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/user/post-list(page=${recruitments.number+1})}">Next</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    ClassicEditor.create(document.querySelector('#editorN')).then(eidt => {
+        console.log("da" + eidt);
+    })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Work CV</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" th:href="@{/assets/css/open-iconic-bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.theme.default.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/owl.theme.default.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/ionicons.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/bootstrap-datepicker.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/jquery.timepicker.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/css/bootstrap-reboot.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/css/mixins/_text-hide.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/flaticon.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/icomoon.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/bootstrap/bootstrap-grid.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/bootstrap/bootstrap-reboot.css}">
+
+  <!-- JS -->
+  <script th:src="@{/assets/js/jquery.min.js}"></script>
+  <script th:src="@{/assets/js/jquery-migrate-3.0.1.min.js}"></script>
+  <script th:src="@{/assets/js/popper.min.js}"></script>
+  <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+  <script th:src="@{/assets/js/jquery.easing.1.3.js}"></script>
+  <script th:src="@{/assets/js/jquery.waypoints.min.js}"></script>
+  <script th:src="@{/assets/js/jquery.stellar.min.js}"></script>
+  <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+  <script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+  <script th:src="@{/assets/js/aos.js}"></script>
+  <script th:src="@{/assets/js/jquery.animateNumber.min.js}"></script>
+  <script th:src="@{/assets/js/scrollax.min.js}"></script>
+  <script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false}"></script>
+  <script th:src="@{/assets/js/google-map.js}"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
+  <script th:src="@{https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js}"></script>
+  <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid px-md-4	">
+          <a class="navbar-brand" th:href="@{home}">Work CV</a>
+
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a th:href="@{home}" class="nav-link">Trang chủ</a></li>
+                    <li class="nav-item">
+                        <a th:href="@{list-recruitment}" class="nav-link">Công việc</a>
+                    </li>
+                    <li th:if="${userlogin != 'null'}" class="nav-item">
+                        <a th:if="${userlogin.isAdmin}"
+                           th:href="@{list-user}" class="nav-link">Ứng cử viên</a>
+                    </li>
+
+                    <li class="nav-item cta mr-md-1 px-1 ">
+                        <a th:href="@{register}"
+                           th:if="${userlogin == 'null'}" class="nav-link">Đăng ký</a>
+                    </li>
+
+                    <li class="nav-item cta mr-md-1 px-1  ">
+                        <a th:href="@{login}"
+                           th:if="${userlogin == 'null'}" class="nav-link">Đăng nhập</a>
+                    </li>
+
+
+                    <!--  Nếu là Manager thì hiện thị chức năng của Manager       -->
+                    <li class="nav-item" th:if="${userlogin != 'null'}">
+                        <p class="nav-link text-center" th:text="${userlogin.fullname}">
+                        <ul  th:if="${userlogin.isAdmin}" class="dropdown">
+                            <li><a th:href="@{/profile}">Hồ Sơ</a></li>
+                            <li><a th:href="@{/user/post-list}" >Danh sách bài đăng</a></li>
+                            <li><a th:href="@{logout}" >Đăng xuất</a></li>
+                        </ul>
+
+                        <ul  th:unless="${userlogin.isAdmin}" class="dropdown">
+                            <li><a th:href="@{/profile}">Hồ Sơ</a></li>
+                            <li><a th:href="@{/list-save-job}">Công việc đã lưu</a></li>
+                            <li><a th:href="@{/list-follow-company}">Công ty đã lưu</a></li>
+                            <li><a th:href="@{logout}" >Đăng xuất</a></li>
+                        </ul>
+                        </p>
+                    </li>
+
+                    <li th:if="${userlogin != 'null'}" class="nav-item cta mr-md-1 px-1" >
+                        <a th:if="${userlogin.isAdmin}"
+                           th:href="@{/user/post-job}"
+                           class="nav-link">Đăng tuyển</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+      </nav>
+<!-- END nav -->
+<div th:if="${success}" class="toast" data-delay="2000" style="position:fixed;top: 100PX; right: 10PX;z-index: 2000;width: 300px">
+    <script>
+        swal({
+            title: 'Xóa thành công!',
+            /* text: 'Redirecting...', */
+            icon: 'success',
+            timer: 3000,
+            buttons: true,
+            type: 'success'
+        })
+    </script>
+</div>
+<!-- END nav -->
+<div class="hero-wrap hero-wrap-2" style="background-image: url('user/assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" th:if="${userlogin.role.id == 2 }">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a href="/">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span>Công ty <span></span></p>
+                <h1 class="mb-3 bread">Danh sách công ty đã theo dõi</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hero-wrap hero-wrap-2" style="background-image: url('user/assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" th:if="${userlogin.role.id == 1 }">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 text-center mb-5">
+
+                <h1 class="mb-3 bread">Không tìm thấy trang yêu cầu</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section bg-light" th:if="${userlogin.role.id == 2}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 pr-lg-5">
+                <div th:if="${followCompanys.totalPages > 0}" class="row">
+                    <th:block th:each="followCompany : ${followCompanys.content}">
+                        <div class="col-md-12 ">
+                            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                <div class="one-third mb-4 mb-md-0">
+                                    <div class="job-post-item-header align-items-center">
+<!--                                        <span class="subadge" th:text="${saveJob.com.type}"></span>-->
+                                        <h2 class="mr-3 text-black" ><a th:text="${followCompany.company.nameCompany}" th:href="@{/detail-post(id=${followCompany.company.id})}"></a></h2>
+                                    </div>
+                                    <div class="job-post-item-body d-block d-md-flex">
+                                        <div class="mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layers" viewBox="0 0 16 16">
+                                                <path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zm3.515 7.008L14.438 10 8 13.433 1.562 10 4.25 8.567l3.515 1.874a.5.5 0 0 0 .47 0l3.515-1.874zM8 9.433 1.562 6 8 2.567 14.438 6z"/>
+                                            </svg>
+                                            <a href="#" th:text="${followCompany.company.email}" ></a></div>
+                                        <div class="mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                                            </svg>
+                                            <span th:text="${followCompany.company.address}"></span></div>
+                                        <div style="margin-left: 10">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                                            </svg>
+                                            <span th:text="${followCompany.company.phoneNumber}"></span></div>
+                                    </div>
+                                </div>
+                                <input type="hidden" th:id="${'idRe'}+${followCompany.company.id}" th:value="${followCompany.company.id}">
+                                <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0" style="width:370px !important;">
+                                    <div>
+                                        <a  th:href="${'/user/delete-follow/'}+${followCompany.id}" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <a th:href="@{/user/detail-company(id=${followCompany.company.id})}" class="btn btn-primary py-2">Chi tiết</a>
+                                    <a th:href="@{/user/company-post(id=${followCompany.company.id})}" class="btn btn-warning py-2 ml-1">Danh sách bài đăng</a>
+                                </div>
+                            </div>
+                        </div><!-- end -->
+                    </th:block>
+
+                </div>
+                <div style="text-align: center" th:if="${followCompanys.totalPages < 1}">
+                    <p style="color:red;">Danh sách trống</p>
+                </div>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${pageNumber == 0 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/list-follow-company(page=${followCompanys.number-1})}">Previous</a>
+                    </li>
+                    <div th:each="i : ${#numbers.sequence(0, followCompanys.totalPages - 1)}">
+                        <li class="page-item" th:classappend="${i==followCompanys.number} ? 'active': ''">
+                            <a class="page-link" th:ac th:href="@{/list-follow-company(page=${i})}" th:text="${i + 1}">
+                            </a>
+                        </li>
+                    </div>
+                    <li class="page-item"
+                        th:classappend="${pageNumber == followCompanys.totalPages-1 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/list-follow-company(page=${followCompanys.number+1})}">Next</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    function save(id){
+        var name = "#idRe" +id;
+        var idRe = $(name).val();
+        var formData = new FormData();
+        formData.append('idRe', idRe);
+        $.ajax(
+            {
+                type: 'POST',
+                url: '/save-job/save/',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (data) {
+                    if(data == "false"){
+                        swal({
+                            title: 'Bạn cần phải đăng nhập!',
+                            /* text: 'Redirecting...', */
+                            icon: 'error',
+                            timer: 3000,
+                            buttons: true,
+                            type: 'error'
+                        })
+                    }else if(data == "true"){
+                        swal({
+                            title: 'Lưu thành công!',
+                            /* text: 'Redirecting...', */
+                            icon: 'success',
+                            timer: 3000,
+                            buttons: true,
+                            type: 'success'
+                        })
+                    }else{
+                        swal({
+                            title: 'Bạn đã lưu bài này rồi!',
+                            /* text: 'Redirecting...', */
+                            icon: 'error',
+                            timer: 3000,
+                            buttons: true,
+                            type: 'error'
+                        })
+                    }
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }
+        )
+    }
+</script>
+
+
+
+
+<footer replace="public/fragments :: footer" class="ftco-footer ftco-bg-dark ftco-section">
+
+</footer>
+
+
+<!-- loader -->
+<!--<div th:replace="public/fragments :: loading" id="ftco-loader" class="show fullscreen"></div>-->
+
+</body>
+</html>
